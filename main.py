@@ -1,24 +1,22 @@
-from telethon import TelegramClient
+from telethon import TelegramClient, events, sync
 import os
-
+import shutil
+import time
+import subprocess
+banner = """
+ ____________________________________________________
+|                                                    |
+|                     Dont WORIIIE                   |
+|____________________________________________________|
+"""
+print(banner)
 api_id = '27081922'
 api_hash = '402702c34e957d67bc1a9a61925ebf72'
 
-session_folder = 'sess'
-os.makedirs(session_folder, exist_ok=True)
+names = input("Session name: ")
+with TelegramClient('client', api_id, api_hash) as client:
+    shutil.copyfile("client.session", f"session/{names}.session")
+    time.sleep(3)
 
-session_name = os.path.join(session_folder, input('Название сессии: '))
 
-client = TelegramClient(session_name, api_id, api_hash)
-
-async def main():
-    await client.start()
-    print("Вы успешно авторизованы!")
-
-    me = await client.get_me()
-    print(f'Привет, {me.first_name}!')
-
-    await client.disconnect()
-
-with client:
-    client.loop.run_until_complete(main())
+subprocess.Popen(['python', 'cleaner.py', 'argzzz1', 'argzzz2'])
